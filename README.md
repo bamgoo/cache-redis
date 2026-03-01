@@ -1,2 +1,2 @@
 # cache-redis
-bamgoo redis cache driver.
+infrago redis cache driver.

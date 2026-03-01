@@ -1,4 +1,4 @@
-module github.com/bamgoo/cache-redis
+module github.com/infrago/cache-redis
 
 go 1.25.3
 

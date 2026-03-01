@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bamgoo/bamgoo"
-	"github.com/bamgoo/cache"
+	"github.com/infrago/infra"
+	"github.com/infrago/cache"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -18,7 +18,7 @@ type redisConnection struct {
 }
 
 func init() {
-	bamgoo.Register("redis", &redisDriver{})
+	infra.Register("redis", &redisDriver{})
 }
 
 func (d *redisDriver) Connect(inst *cache.Instance) (cache.Connect, error) {
