@@ -1,49 +1,37 @@
 # cache-redis
 
-`cache-redis` 是 `cache` 模块的 `redis` 驱动。
+`cache-redis` 是 `github.com/infrago/cache` 的**redis 驱动**。
 
-## 安装
+## 包定位
 
-```bash
-go get github.com/infrago/cache@latest
-go get github.com/infrago/cache-redis@latest
-```
+- 类型：驱动
+- 作用：把 `cache` 模块的统一接口落到 `redis` 后端实现
 
-## 接入
+## 快速接入
 
 ```go
 import (
     _ "github.com/infrago/cache"
     _ "github.com/infrago/cache-redis"
-    "github.com/infrago/infra"
 )
-
-func main() {
-    infra.Run()
-}
 ```
-
-## 配置示例
 
 ```toml
 [cache]
 driver = "redis"
 ```
 
-## 公开 API（摘自源码）
+## `setting` 专用配置项
 
-- `func (d *redisDriver) Connect(inst *cache.Instance) (cache.Connect, error)`
-- `func (c *redisConnection) Open() error  { return nil }`
-- `func (c *redisConnection) Close() error { return c.client.Close() }`
-- `func (c *redisConnection) Read(key string) ([]byte, error)`
-- `func (c *redisConnection) Write(key string, val []byte, expire time.Duration) error`
-- `func (c *redisConnection) Exists(key string) (bool, error)`
-- `func (c *redisConnection) Delete(key string) error`
-- `func (c *redisConnection) Sequence(key string, start, step int64, expire time.Duration) (int64, error)`
-- `func (c *redisConnection) Keys(prefix string) ([]string, error)`
-- `func (c *redisConnection) Clear(prefix string) error`
+配置位置：`[cache].setting`
 
-## 排错
+- `server`
+- `addr`
+- `username`
+- `password`
+- `database`
 
-- driver 未生效：确认模块段 `driver` 值与驱动名一致
-- 连接失败：检查 endpoint/host/port/鉴权配置
+## 说明
+
+- `setting` 仅对当前驱动生效，不同驱动键名可能不同
+- 连接失败时优先核对 `setting` 中 host/port/认证/超时等参数
